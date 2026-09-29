@@ -28,7 +28,7 @@ $taxLabel = match ($report['tax_classification'] ?? null) {
 <?php
 echo file_get_contents(dirname(__DIR__, 4) . '/public/assets/css/pdf/pdf-brand.css');
 echo file_get_contents(dirname(__DIR__, 4) . '/public/assets/css/pdf/pdf-preview.css');
-echo file_get_contents(dirname(__DIR__, 4) . '/public/assets/css/pdf/pdf-hiring-report.css');
+echo file_get_contents(bundle_asset_path('hiring-report', 'css/pdf-hiring-report.css') ?? '');
 ?>
 </style>
 </head>

@@ -11,6 +11,7 @@ Le schéma de version (X.Y.Z, canaux alpha/beta/main) est décrit dans
 ### Changed
 
 - Aucun changement fonctionnel — bump de version pour aligner ce bundle sur la ligne 1.1.0 commune à tous les bundles officiels.
+- Le CSS du PDF (`pdf-hiring-report.css`) vivait dans Kintai Core. Il vit maintenant dans `public/css/pdf-hiring-report.css`, fourni par ce bundle via `Bundle::loadAssetsFrom()`/`bundle_asset_path()`. Corrige au passage le même bug latent que `daily-report` : `dirname(__DIR__, 4)` ne résolvait pas correctement pour un bundle installé dynamiquement. **Nécessite** `kintai_core.min: "0.2.0"`.
 
 ## [1.0.0] - 2026-09-19
 

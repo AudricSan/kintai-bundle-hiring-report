@@ -44,5 +44,6 @@ final class HiringReportBundle extends Bundle
     {
         $this->loadViewsFrom($this->getPath() . '/Views', 'hiring-report');
         $this->loadRoutesFrom($this->getPath() . '/routes.php');
+        $this->loadAssetsFrom('public');
     }
 }
