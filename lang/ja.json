@@ -1,4 +1,5 @@
 {
+    "error_hiring_user_not_in_store": "選択した従業員はこの店舗のメンバーではありません。",
     "bundle_hiring_report": "採用報告書",
     "bundle_hiring_report_desc": "店舗ごとの採用報告書の閲覧・編集。このバンドルを無効にしても、従業員作成時の自動生成は継続されます。",
     "confirm_delete_hiring_report": "この採用報告書を削除しますか？",
