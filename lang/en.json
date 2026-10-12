@@ -1,4 +1,5 @@
 {
+    "error_hiring_user_not_in_store": "The selected employee is not a member of this store.",
     "bundle_hiring_report": "Hiring Report",
     "bundle_hiring_report_desc": "Browse and edit per-store hiring reports. Still auto-generated on employee creation even when this bundle is disabled.",
     "confirm_delete_hiring_report": "Permanently delete this hiring report?",
