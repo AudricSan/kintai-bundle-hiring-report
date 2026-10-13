@@ -1,8 +1,8 @@
 <?php
-use kintai\UI\Components\Badge;
-use kintai\UI\Components\Button;
-use kintai\UI\Components\Flash;
-use kintai\UI\Components\Table;
+use kintai\Contract\View\Components\Badge;
+use kintai\Contract\View\Components\Button;
+use kintai\Contract\View\Components\Flash;
+use kintai\Contract\View\Components\Table;
 
 /**
  * @var array      $store

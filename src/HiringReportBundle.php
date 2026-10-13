@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace kintai\Bundles\Installed\HiringReport;
 
-use kintai\Core\BundleContract\Bundle;
+use kintai\Contract\Bundle;
 
 /**
  * Contrairement à ResignationReport/SalaryReport/StorePhoto, ce bundle
@@ -27,7 +27,7 @@ final class HiringReportBundle extends Bundle
 
     public function getVersion(): string
     {
-        return '1.1.0';
+        return '1.2.0';
     }
 
     public function getLabel(): string
