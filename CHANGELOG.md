@@ -8,6 +8,10 @@ Le schéma de version (X.Y.Z, canaux alpha/beta/main) est décrit dans
 
 ## [Unreleased]
 
+### Added
+
+- Socle de tests PHPUnit (composer.json, phpunit.xml) et CI qui l'exécute contre le vrai Core : les tests que le Core faisait tourner sur une copie figée du bundle (fixtures 1.0.0) vivent désormais ici et testent le code réel.
+
 ### Fixed
 
 - Sécurité — le `user_id` posté à la création d'un rapport d'embauche n'était pas vérifié : il doit être membre du magasin du rapport. Le formulaire ne propose plus que les membres du magasin au lieu de tous les comptes de l'instance (le contrôleur reçoit désormais `StoreUserRepositoryInterface`).
