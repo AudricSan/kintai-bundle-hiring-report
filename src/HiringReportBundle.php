@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace kintai\Bundles\Installed\HiringReport;
 
 use kintai\Contract\Bundle;
+use kintai\Contract\Extension\NavItem;
 
 /**
  * Contrairement à ResignationReport/SalaryReport/StorePhoto, ce bundle
@@ -45,5 +46,24 @@ final class HiringReportBundle extends Bundle
         $this->loadViewsFrom($this->getPath() . '/Views', 'hiring-report');
         $this->loadRoutesFrom($this->getPath() . '/routes.php');
         $this->loadAssetsFrom('public');
+    }
+
+    /**
+     * Navigation (contrat 1.1) : entrée(s) de la barre du haut et de la barre mobile.
+     */
+    public function navigation(): array
+    {
+        return [
+            new NavItem('hiring_report', NavItem::REPORTS, 'hiring_reports', 'admin.reports.hiring', 'admin.reports.hiring',
+                icon: 'person', activePaths: ['*/reports/hiring'], order: 10),
+        ];
+    }
+
+    /**
+     * Catégories de permissions (contrat 1.2), proposées sur la page des rôles.
+     */
+    public function permissions(): array
+    {
+        return ['hiring_reports' => ['view', 'create', 'update', 'delete']];
     }
 }
