@@ -8,7 +8,7 @@ namespace kintai\Tests\Bundles\HiringReport\Controllers\Web;
 use kintai\Bundles\Installed\HiringReport\Controllers\Web\AdminHiringReportController;
 use kintai\Core\Container;
 use kintai\Core\Exceptions\NotFoundException;
-use kintai\Core\Repositories\HiringReportRepositoryInterface;
+use kintai\Bundles\Installed\HiringReport\Repositories\HiringReportRepositoryInterface;
 use kintai\Core\Repositories\LogRepositoryInterface;
 use kintai\Core\Repositories\StoreRepositoryInterface;
 use kintai\Core\Repositories\StoreUserRepositoryInterface;

@@ -4,20 +4,18 @@ declare(strict_types=1);
 
 namespace kintai\Bundles\Installed\HiringReport;
 
+use kintai\Bundles\Installed\HiringReport\Repositories\DatabaseHiringReportRepository;
+use kintai\Bundles\Installed\HiringReport\Repositories\HiringReportRepositoryInterface;
+use kintai\Bundles\Installed\HiringReport\Services\HiringReportOnEmployeeCreated;
 use kintai\Contract\Bundle;
+use kintai\Contract\Event\EmployeeCreated;
 use kintai\Contract\Extension\NavItem;
 
 /**
- * Contrairement à ResignationReport/SalaryReport/StorePhoto, ce bundle
- * n'enregistre pas son propre repository : HiringReportRepositoryInterface
- * reste un service Core (RepositoryServiceProvider), car AdminUserController
- * l'utilise directement pour générer automatiquement un rapport d'embauche
- * à chaque création d'employé (formulaire standard et import Excel rapide) —
- * un effet de bord du cœur de la gestion des utilisateurs, qui doit continuer
- * de fonctionner même si ce bundle est désactivé ou désinstallé. Désactiver
- * "hiring-report" retire uniquement l'UI de consultation/édition des rapports
- * d'embauche (liste, fiche, PDF), pas la génération automatique ni les
- * données elles-mêmes.
+ * Le bundle possède son modèle, son dépôt et sa table (hiring_reports). À chaque création d'employé affecté à un
+ * magasin, le Core annonce EmployeeCreated (contrat 1.13) et le bundle crée le rapport d'embauche
+ * (Services\HiringReportOnEmployeeCreated). Désactiver ou désinstaller « hiring-report » retire la consultation et
+ * l'édition des rapports, ainsi que leur création automatique ; la table et ses données restent.
  */
 final class HiringReportBundle extends Bundle
 {
@@ -43,6 +41,7 @@ final class HiringReportBundle extends Bundle
 
     public function register(): void
     {
+        $this->app->container()->singleton(HiringReportRepositoryInterface::class, fn() => new DatabaseHiringReportRepository());
         $this->loadViewsFrom($this->getPath() . '/Views', 'hiring-report');
         $this->loadRoutesFrom($this->getPath() . '/routes.php');
         $this->loadAssetsFrom('public');
@@ -65,5 +64,15 @@ final class HiringReportBundle extends Bundle
     public function permissions(): array
     {
         return ['hiring_reports' => ['view', 'create', 'update', 'delete']];
+    }
+
+    /**
+     * Événements du Core (contrat 1.13) : le rapport d'embauche est créé à la création de l'employé.
+     */
+    public function eventListeners(): array
+    {
+        return [
+            EmployeeCreated::class => fn(EmployeeCreated $event) => $this->app->container()->make(HiringReportOnEmployeeCreated::class)($event),
+        ];
     }
 }
