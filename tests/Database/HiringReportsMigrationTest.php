@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace kintai\Tests\Bundles\HiringReport\Database;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+use kintai\Bundles\Installed\HiringReport\Controllers\Web\AdminHiringReportController;
 use kintai\Bundles\Installed\HiringReport\Repositories\DatabaseHiringReportRepository;
 use kintai\Core\Database\BundleMigrationRunner;
 use PHPUnit\Framework\TestCase;
@@ -53,6 +54,28 @@ final class HiringReportsMigrationTest extends TestCase
         $saved = $repo->save(['store_id' => 1, 'user_id' => 2, 'employee_name' => 'Sato', 'furigana_last_name' => 'サトウ', 'created_by' => 1]);
         $this->assertSame('サトウ', $repo->findById((int) $saved['id'])['furigana_last_name']);
         $this->assertSame([], $runner->runPendingFor('hiring-report', $this->migrationsPath()), 'rejouée : rien');
+    }
+
+    /**
+     * Chaque champ que le formulaire écrit (AdminHiringReportController::REPORT_TYPE) doit exister dans la table : un
+     * champ « furigana » resté après la suppression de la colonne combinée faisait échouer toute création et toute
+     * modification manuelle d'un rapport (erreur SQL), sans qu'aucun test ne le voie (dépôt simulé).
+     */
+    public function testEveryFormFieldIsAColumnOfTheTable(): void
+    {
+        [$runner, $capsule] = $this->freshRunner();
+        $runner->runPendingFor('hiring-report', $this->migrationsPath());
+        $schema = $capsule->getConnection()->getSchemaBuilder();
+
+        $type = (new \ReflectionClassConstant(AdminHiringReportController::class, 'REPORT_TYPE'))->getValue();
+        $this->assertNotEmpty($type['fields']);
+        foreach (array_keys($type['fields']) as $field) {
+            $this->assertTrue($schema->hasColumn('hiring_reports', $field), "champ du formulaire sans colonne : {$field}");
+        }
+
+        $row = array_fill_keys(array_keys($type['fields']), null) + ['store_id' => 1, 'created_by' => 1];
+        $saved = (new DatabaseHiringReportRepository())->save($row);
+        $this->assertGreaterThan(0, (int) $saved['id'], 'un rapport avec tous les champs du formulaire s\'enregistre');
     }
 
     /** Instance existante : la table créée par le Core et ses données restent telles quelles. */
