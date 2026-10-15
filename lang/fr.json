@@ -2,7 +2,7 @@
     "all_months": "Tous les mois",
     "all_years": "Toutes les années",
     "bundle_hiring_report": "Rapport d'embauche",
-    "bundle_hiring_report_desc": "Consultation et édition des rapports d'embauche par magasin. Générés automatiquement à la création d'un employé, même si ce bundle est désactivé.",
+    "bundle_hiring_report_desc": "Consultation et édition des rapports d'embauche par magasin, générés automatiquement à la création d'un employé tant que le bundle est actif.",
     "confirm_delete_hiring_report": "Supprimer définitivement ce rapport d'embauche ?",
     "edit_hiring_report": "Modifier le rapport d'embauche",
     "error_hiring_report_not_found": "Rapport d'embauche introuvable.",

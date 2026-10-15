@@ -20,6 +20,7 @@ Le schéma de version (X.Y.Z, canaux alpha/beta/main) est décrit dans
 
 ### Fixed
 
+- Description du bundle corrigée (`bundle.json` et `lang/`) : elle affirmait que les rapports d'embauche étaient générés à la création d'un employé « même si ce bundle est désactivé », ce qui n'est plus vrai depuis l'extraction du Core (la génération passe par l'écouteur `EmployeeCreated` du bundle).
 - Sécurité — le `user_id` posté à la création d'un rapport d'embauche n'était pas vérifié : il doit être membre du magasin du rapport. Le formulaire ne propose plus que les membres du magasin au lieu de tous les comptes de l'instance (le contrôleur reçoit désormais `StoreUserRepositoryInterface`).
 
 ### Changed

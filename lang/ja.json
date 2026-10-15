@@ -2,7 +2,7 @@
     "all_months": "全月",
     "all_years": "全年度",
     "bundle_hiring_report": "採用報告書",
-    "bundle_hiring_report_desc": "店舗ごとの採用報告書の閲覧・編集。このバンドルを無効にしても、従業員作成時の自動生成は継続されます。",
+    "bundle_hiring_report_desc": "店舗ごとの採用報告書の閲覧・編集。バンドルが有効な間、従業員の作成時に自動生成されます。",
     "confirm_delete_hiring_report": "この採用報告書を削除しますか？",
     "edit_hiring_report": "採用報告書を編集",
     "error_hiring_report_not_found": "採用レポートが見つかりません。",
