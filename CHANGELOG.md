@@ -20,6 +20,7 @@ Le schéma de version (X.Y.Z, canaux alpha/beta/main) est décrit dans
 
 ### Fixed
 
+- Création et modification manuelles d'un rapport d'embauche impossibles (erreur 500 « table hiring_reports has no column named furigana ») : le formulaire écrivait encore la colonne combinée `furigana`, supprimée par le Core le 23/09/2026 et absente de la migration du bundle. Le champ est retiré ; le rapport créé automatiquement à la création d'un employé n'était pas touché. Nouveau test : chaque champ du formulaire doit exister dans la table créée par la migration.
 - Description du bundle corrigée (`bundle.json` et `lang/`) : elle affirmait que les rapports d'embauche étaient générés à la création d'un employé « même si ce bundle est désactivé », ce qui n'est plus vrai depuis l'extraction du Core (la génération passe par l'écouteur `EmployeeCreated` du bundle).
 - Sécurité — le `user_id` posté à la création d'un rapport d'embauche n'était pas vérifié : il doit être membre du magasin du rapport. Le formulaire ne propose plus que les membres du magasin au lieu de tous les comptes de l'instance (le contrôleur reçoit désormais `StoreUserRepositoryInterface`).
 
