@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace kintai\Bundles\Installed\HiringReport\Controllers\Web;
 
-use kintai\Core\Exceptions\ValidationException;
-use kintai\Core\Repositories\HiringReportRepositoryInterface;
-use kintai\Core\Repositories\StoreRepositoryInterface;
-use kintai\Core\Repositories\StoreUserRepositoryInterface;
-use kintai\Core\Repositories\UserRepositoryInterface;
-use kintai\Core\Request;
-use kintai\Core\Response;
-use kintai\Core\Services\AuditLogger;
-use kintai\UI\Controller\Web\HasAdminAccess;
-use kintai\UI\Controller\Web\Staff\HasStaffReportCrud;
-use kintai\UI\ViewRenderer;
+use kintai\Contract\Exceptions\ValidationException;
+use kintai\Bundles\Installed\HiringReport\Repositories\HiringReportRepositoryInterface;
+use kintai\Contract\Data\StoreRepositoryInterface;
+use kintai\Contract\Data\StoreUserRepositoryInterface;
+use kintai\Contract\Data\UserRepositoryInterface;
+use kintai\Contract\Http\Request;
+use kintai\Contract\Http\Response;
+use kintai\Contract\Services\AuditLogger;
+use kintai\Contract\Http\Concerns\HasAdminAccess;
+use kintai\Contract\Http\Concerns\HasStaffReportCrud;
+use kintai\Contract\View\ViewRenderer;
 
 final class AdminHiringReportController
 {
