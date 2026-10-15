@@ -29,7 +29,6 @@ final class AdminHiringReportController
         'fields'    => [
             'employee_number'     => 'str',
             'employee_name'       => 'str',
-            'furigana'            => 'null',
             'furigana_last_name'  => 'str',
             'furigana_first_name' => 'str',
             'gender'              => 'str',
