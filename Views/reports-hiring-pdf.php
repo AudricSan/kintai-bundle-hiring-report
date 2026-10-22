@@ -15,8 +15,8 @@ $genderLabel = match ($report['gender'] ?? null) {
     default  => '—',
 };
 $taxLabel = match ($report['tax_classification'] ?? null) {
-    'kou'  => __('tax_kou'),
-    'otsu' => __('tax_otsu'),
+    'kou'  => __('hiring_report_tax_kou'),
+    'otsu' => __('hiring_report_tax_otsu'),
     default => '—',
 };
 ?>
@@ -41,7 +41,7 @@ echo file_get_contents(bundle_asset_path('hiring-report', 'css/pdf-hiring-report
 <div class="subtitle"><?= htmlspecialchars($store['name'] ?? '') ?></div>
 
 <table>
-    <tr><th colspan="2"><?= __('section_identity') ?></th></tr>
+    <tr><th colspan="2"><?= __('hiring_report_section_identity') ?></th></tr>
     <tr><td class="label-cell"><?= __('employee_number') ?></td><td><?= htmlspecialchars($report['employee_number'] ?? '') ?></td></tr>
     <tr><td class="label-cell"><?= __('employee_name') ?></td><td><?= htmlspecialchars($report['employee_name'] ?? '') ?></td></tr>
     <tr><td class="label-cell"><?= __('furigana_last_name') ?></td><td><?= htmlspecialchars($report['furigana_last_name'] ?? '') ?></td></tr>
@@ -53,7 +53,7 @@ echo file_get_contents(bundle_asset_path('hiring-report', 'css/pdf-hiring-report
 </table>
 
 <table>
-    <tr><th colspan="2"><?= __('section_contact') ?></th></tr>
+    <tr><th colspan="2"><?= __('hiring_report_section_contact') ?></th></tr>
     <tr><td class="label-cell"><?= __('postal_code') ?></td><td><?= htmlspecialchars($report['postal_code'] ?? '') ?></td></tr>
     <tr><td class="label-cell"><?= __('address') ?></td><td><?= nl2br(htmlspecialchars($report['address'] ?? '')) ?></td></tr>
     <tr><td class="label-cell"><?= __('phone') ?></td><td><?= htmlspecialchars($report['phone'] ?? '') ?></td></tr>
@@ -62,16 +62,16 @@ echo file_get_contents(bundle_asset_path('hiring-report', 'css/pdf-hiring-report
 </table>
 
 <table>
-    <tr><th colspan="2"><?= __('section_guarantor') ?></th></tr>
+    <tr><th colspan="2"><?= __('hiring_report_section_guarantor') ?></th></tr>
     <tr><td class="label-cell"><?= __('guarantor_name') ?></td><td><?= htmlspecialchars($report['guarantor_name'] ?? '') ?></td></tr>
     <tr><td class="label-cell"><?= __('guarantor_phone') ?></td><td><?= htmlspecialchars($report['guarantor_phone'] ?? '') ?></td></tr>
 </table>
 
 <table>
-    <tr><th colspan="2"><?= __('section_employment') ?></th></tr>
-    <tr><td class="label-cell"><?= __('store_name') ?></td><td><?= htmlspecialchars($report['store_name'] ?? $store['name'] ?? '') ?></td></tr>
-    <tr><td class="label-cell"><?= __('hired_by') ?></td><td><?= htmlspecialchars($report['hired_by'] ?? '') ?></td></tr>
-    <tr><td class="label-cell"><?= __('hire_date') ?></td><td><?= htmlspecialchars($report['hire_date'] ?? '') ?></td></tr>
+    <tr><th colspan="2"><?= __('hiring_report_section_employment') ?></th></tr>
+    <tr><td class="label-cell"><?= __('hiring_report_store_name') ?></td><td><?= htmlspecialchars($report['store_name'] ?? $store['name'] ?? '') ?></td></tr>
+    <tr><td class="label-cell"><?= __('hiring_report_hired_by') ?></td><td><?= htmlspecialchars($report['hired_by'] ?? '') ?></td></tr>
+    <tr><td class="label-cell"><?= __('hiring_report_hire_date') ?></td><td><?= htmlspecialchars($report['hire_date'] ?? '') ?></td></tr>
     <tr><td class="label-cell"><?= __('notes') ?></td><td><?= nl2br(htmlspecialchars($report['notes'] ?? '')) ?></td></tr>
 </table>
 

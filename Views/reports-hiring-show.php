@@ -16,7 +16,7 @@ $base = $BASE_URL . '/admin/stores/' . $storeId . '/reports/hiring';
         <?= Button::make('← ' . __('back'))->ghost()->sm()->link(back_url($base))->render() ?>
         <?= Button::make(__('edit'))->primary()->sm()->link($base . '/' . $reportId . '/edit')->render() ?>
         <?= Button::make('PDF')->ghost()->sm()->link($base . '/' . $reportId . '/pdf')->attrs(['target' => '_blank'])->render() ?>
-        <form method="POST" action="<?= htmlspecialchars($base . '/' . $reportId . '/delete') ?>" class="form-inline" data-confirm="<?= htmlspecialchars(__('confirm_delete_hiring_report'), ENT_QUOTES) ?>">
+        <form method="POST" action="<?= htmlspecialchars($base . '/' . $reportId . '/delete') ?>" class="form-inline" data-confirm="<?= htmlspecialchars(__('hiring_report_confirm_delete_hiring_report'), ENT_QUOTES) ?>">
             <?= csrf_field() ?>
             <?= Button::make(__('delete'))->danger()->sm()->submit()->render() ?>
         </form>
@@ -33,7 +33,7 @@ ob_start();
 ?>
 <table class="data-table">
     <thead>
-        <tr><th colspan="2"><?= __('section_identity') ?></th></tr>
+        <tr><th colspan="2"><?= __('hiring_report_section_identity') ?></th></tr>
     </thead>
     <tbody>
         <?= $field(__('employee_number'), 'employee_number') ?>
@@ -48,7 +48,7 @@ ob_start();
 </table>
 <table class="data-table">
     <thead>
-        <tr><th colspan="2"><?= __('section_contact') ?></th></tr>
+        <tr><th colspan="2"><?= __('hiring_report_section_contact') ?></th></tr>
     </thead>
     <tbody>
         <?= $field(__('postal_code'), 'postal_code') ?>
@@ -60,7 +60,7 @@ ob_start();
 </table>
 <table class="data-table">
     <thead>
-        <tr><th colspan="2"><?= __('section_guarantor') ?></th></tr>
+        <tr><th colspan="2"><?= __('hiring_report_section_guarantor') ?></th></tr>
     </thead>
     <tbody>
         <?= $field(__('guarantor_name'), 'guarantor_name') ?>
@@ -69,12 +69,12 @@ ob_start();
 </table>
 <table class="data-table">
     <thead>
-        <tr><th colspan="2"><?= __('section_employment') ?></th></tr>
+        <tr><th colspan="2"><?= __('hiring_report_section_employment') ?></th></tr>
     </thead>
     <tbody>
-        <?= $field(__('store_name'), 'store_name') ?>
-        <?= $field(__('hired_by'), 'hired_by') ?>
-        <?= $field(__('hire_date'), 'hire_date') ?>
+        <?= $field(__('hiring_report_store_name'), 'store_name') ?>
+        <?= $field(__('hiring_report_hired_by'), 'hired_by') ?>
+        <?= $field(__('hiring_report_hire_date'), 'hire_date') ?>
         <?= $field(__('notes'), 'notes') ?>
     </tbody>
 </table>

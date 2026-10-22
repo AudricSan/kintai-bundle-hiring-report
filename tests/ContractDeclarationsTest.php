@@ -29,7 +29,7 @@ final class ContractDeclarationsTest extends TestCase
         $this->assertInstanceOf(NavItem::class, $items[0]);
         $this->assertSame('hiring_report', $items[0]->key);
         $this->assertSame(NavItem::REPORTS, $items[0]->section);
-        $this->assertSame('hiring_reports', $items[0]->label);
+        $this->assertSame('hiring_report_hiring_reports', $items[0]->label);
         $this->assertSame('admin.reports.hiring', $items[0]->managerRoute);
         $this->assertSame('admin.reports.hiring', $items[0]->employeeRoute);
         $this->assertSame('person', $items[0]->icon);
@@ -72,7 +72,7 @@ final class ContractDeclarationsTest extends TestCase
     /** Libellés des déclarations et des pages, fournis par le bundle. */
     public function testDeclaredLabelsAreTranslatedByTheBundle(): void
     {
-        $keys = ['hiring_reports', 'perm_category_hiring_reports', 'error_hiring_report_not_found', 'store_picker_choose', 'all_months', 'all_years'];
+        $keys = ['hiring_report_hiring_reports', 'perm_category_hiring_reports', 'hiring_report_error_not_found', 'hiring_report_store_picker_choose', 'hiring_report_all_months', 'hiring_report_all_years'];
         foreach (['fr', 'en', 'ja'] as $locale) {
             $lang = json_decode((string) file_get_contents(dirname(__DIR__) . "/lang/{$locale}.json"), true);
             foreach ($keys as $key) {

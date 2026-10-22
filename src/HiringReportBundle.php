@@ -53,7 +53,7 @@ final class HiringReportBundle extends Bundle
     public function navigation(): array
     {
         return [
-            new NavItem('hiring_report', NavItem::REPORTS, 'hiring_reports', 'admin.reports.hiring', 'admin.reports.hiring',
+            new NavItem('hiring_report', NavItem::REPORTS, 'hiring_report_hiring_reports', 'admin.reports.hiring', 'admin.reports.hiring',
                 icon: 'person', activePaths: ['*/reports/hiring'], order: 10),
         ];
     }
