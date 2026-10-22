@@ -25,7 +25,7 @@ final class AdminHiringReportController
         'entity'    => 'hiring_report',
         'slug'      => 'hiring',
         'view'      => 'hiring-report::reports-hiring',
-        'not_found' => 'error_hiring_report_not_found',
+        'not_found' => 'hiring_report_error_not_found',
         'fields'    => [
             'employee_number'     => 'str',
             'employee_name'       => 'str',
@@ -87,7 +87,7 @@ final class AdminHiringReportController
         $reports = $this->hiringReports->findAll($queryStoreIds, $filters);
 
         return Response::html($this->view->render('hiring-report::reports-hiring', [
-            'title'        => __('hiring_reports'),
+            'title'        => __('hiring_report_hiring_reports'),
             'stores'       => $allStores,
             'reports'      => $reports,
             'filter_store_id' => $filterStoreId,
@@ -119,7 +119,7 @@ final class AdminHiringReportController
 
         $userId = (int) $request->post('user_id', 0);
         if ($userId > 0 && $this->storeUsers->findMembership($storeId, $userId) === null) {
-            throw new ValidationException(['user_id' => __('error_hiring_user_not_in_store')]);
+            throw new ValidationException(['user_id' => __('hiring_report_error_hiring_user_not_in_store')]);
         }
 
         $data = array_merge([
