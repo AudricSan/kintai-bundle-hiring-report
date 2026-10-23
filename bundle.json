@@ -1,7 +1,7 @@
 {
     "slug": "hiring-report",
     "name": "Rapport d'embauche",
-    "version": "1.2.0",
+    "version": "2.0.0",
     "description": "Consultation et édition des rapports d'embauche par magasin, générés automatiquement à la création d'un employé tant que le bundle est actif.",
     "author": {
         "name": "AudricSan",
