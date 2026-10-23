@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace kintai\Bundles\Installed\HiringReport\Controllers\Web;
 
-use kintai\Core\Repositories\HiringReportRepositoryInterface;
-use kintai\Core\Repositories\StoreRepositoryInterface;
-use kintai\Core\Repositories\UserRepositoryInterface;
-use kintai\Core\Request;
-use kintai\Core\Response;
-use kintai\Core\Services\AuditLogger;
-use kintai\UI\Controller\Web\HasAdminAccess;
-use kintai\UI\Controller\Web\Staff\HasStaffReportCrud;
-use kintai\UI\ViewRenderer;
+use kintai\Contract\Exceptions\ValidationException;
+use kintai\Bundles\Installed\HiringReport\Repositories\HiringReportRepositoryInterface;
+use kintai\Contract\Data\StoreRepositoryInterface;
+use kintai\Contract\Data\StoreUserRepositoryInterface;
+use kintai\Contract\Data\UserRepositoryInterface;
+use kintai\Contract\Http\Request;
+use kintai\Contract\Http\Response;
+use kintai\Contract\Services\AuditLogger;
+use kintai\Contract\Http\Concerns\HasAdminAccess;
+use kintai\Contract\Http\Concerns\HasStaffReportCrud;
+use kintai\Contract\View\ViewRenderer;
 
 final class AdminHiringReportController
 {
@@ -23,11 +25,10 @@ final class AdminHiringReportController
         'entity'    => 'hiring_report',
         'slug'      => 'hiring',
         'view'      => 'hiring-report::reports-hiring',
-        'not_found' => 'error_hiring_report_not_found',
+        'not_found' => 'hiring_report_error_not_found',
         'fields'    => [
             'employee_number'     => 'str',
             'employee_name'       => 'str',
-            'furigana'            => 'null',
             'furigana_last_name'  => 'str',
             'furigana_first_name' => 'str',
             'gender'              => 'str',
@@ -54,6 +55,7 @@ final class AdminHiringReportController
         private readonly UserRepositoryInterface $users,
         private readonly HiringReportRepositoryInterface $hiringReports,
         private readonly AuditLogger $auditLogger,
+        private readonly StoreUserRepositoryInterface $storeUsers,
     ) {}
 
     public function hiringReports(Request $request): Response
@@ -85,7 +87,7 @@ final class AdminHiringReportController
         $reports = $this->hiringReports->findAll($queryStoreIds, $filters);
 
         return Response::html($this->view->render('hiring-report::reports-hiring', [
-            'title'        => __('hiring_reports'),
+            'title'        => __('hiring_report_hiring_reports'),
             'stores'       => $allStores,
             'reports'      => $reports,
             'filter_store_id' => $filterStoreId,
@@ -103,7 +105,7 @@ final class AdminHiringReportController
         return Response::html($this->view->render('hiring-report::reports-hiring-form', [
             'title' => '新規採用報告書 — ' . ($store['name'] ?? ''),
             'store' => $store,
-            'users' => $this->users->findAll(),
+            'users' => $this->storeMembersForReportForm($storeId),
             'mode'  => 'create',
             'report' => [],
         ], 'layout.app'));
@@ -116,6 +118,9 @@ final class AdminHiringReportController
         $this->assertStoreAccess($request, $storeId);
 
         $userId = (int) $request->post('user_id', 0);
+        if ($userId > 0 && $this->storeUsers->findMembership($storeId, $userId) === null) {
+            throw new ValidationException(['user_id' => __('hiring_report_error_hiring_user_not_in_store')]);
+        }
 
         $data = array_merge([
             'store_id' => $storeId,
@@ -186,6 +191,6 @@ final class AdminHiringReportController
 
     protected function reportEditExtras(int $storeId, array $report): array
     {
-        return ['users' => $this->users->findAll()];
+        return ['users' => $this->storeMembersForReportForm($storeId, (int) ($report['user_id'] ?? 0))];
     }
 }

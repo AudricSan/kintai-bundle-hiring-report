@@ -1,8 +1,8 @@
 <?php
-use kintai\UI\Components\Badge;
-use kintai\UI\Components\Button;
-use kintai\UI\Components\Flash;
-use kintai\UI\Components\Table;
+use kintai\Contract\View\Components\Badge;
+use kintai\Contract\View\Components\Button;
+use kintai\Contract\View\Components\Flash;
+use kintai\Contract\View\Components\Table;
 
 /**
  * @var array      $store
@@ -55,15 +55,15 @@ echo Flash::fromQuery('success', [
 ])->render();
 ?>
 <div class="page-header">
-    <h2 class="page-header__title"><?= __('hiring_reports') ?> <span class="page-count">(<?= count($reports) ?>)</span></h2>
+    <h2 class="page-header__title"><?= __('hiring_report_hiring_reports') ?> <span class="page-count">(<?= count($reports) ?>)</span></h2>
     <div class="page-header__actions">
         <?php if ($createBase !== null): ?>
-        <?= Button::make('+ ' . __('new_hiring_report'))->primary()->link($createBase . '/create')->render() ?>
+        <?= Button::make('+ ' . __('hiring_report_new_hiring_report'))->primary()->link($createBase . '/create')->render() ?>
         <?php elseif ($allMode): ?>
         <details class="store-picker">
-            <summary class="btn btn--primary">+ <?= __('new_hiring_report') ?></summary>
+            <summary class="btn btn--primary">+ <?= __('hiring_report_new_hiring_report') ?></summary>
             <div class="store-picker__panel">
-                <div class="store-picker__title"><?= __('store_picker_choose') ?></div>
+                <div class="store-picker__title"><?= __('hiring_report_store_picker_choose') ?></div>
                 <?php foreach ($stores as $s): ?>
                     <a class="store-picker__item" href="<?= htmlspecialchars($BASE_URL . '/admin/stores/' . (int) $s['id'] . '/reports/hiring/create') ?>"><?= htmlspecialchars($s['name'] ?? '') ?></a>
                 <?php endforeach; ?>
@@ -84,7 +84,7 @@ echo Flash::fromQuery('success', [
             <?php if ($allMode): ?>
             <div class="shifts-filters__group">
                 <label class="shifts-filters__label" for="hf-store"><?= __('store') ?></label>
-                <select id="hf-store" name="store_id" class="form-control form-control--sm" onchange="this.form.submit()">
+                <select id="hf-store" name="store_id" class="form-control form-control--sm" data-submit-on-change>
                     <option value="0"><?= __('all_stores') ?></option>
                     <?php foreach ($stores as $s): ?>
                         <option value="<?= (int) $s['id'] ?>" <?= (int) $s['id'] === $filter_store_id ? 'selected' : '' ?>><?= htmlspecialchars($s['name'] ?? '') ?></option>
@@ -95,8 +95,8 @@ echo Flash::fromQuery('success', [
 
             <div class="shifts-filters__group">
                 <label class="shifts-filters__label" for="hf-year"><?= __('year') ?></label>
-                <select id="hf-year" name="year" class="form-control form-control--sm" onchange="this.form.submit()">
-                    <option value=""><?= __('all_years') ?></option>
+                <select id="hf-year" name="year" class="form-control form-control--sm" data-submit-on-change>
+                    <option value=""><?= __('hiring_report_all_years') ?></option>
                     <?php foreach ($years as $y): ?>
                         <option value="<?= $y ?>" <?= (string) $y === $filter_year ? 'selected' : '' ?>><?= $y ?></option>
                     <?php endforeach; ?>
@@ -105,8 +105,8 @@ echo Flash::fromQuery('success', [
 
             <div class="shifts-filters__group">
                 <label class="shifts-filters__label" for="hf-month"><?= __('month') ?></label>
-                <select id="hf-month" name="month" class="form-control form-control--sm" onchange="this.form.submit()">
-                    <option value=""><?= __('all_months') ?></option>
+                <select id="hf-month" name="month" class="form-control form-control--sm" data-submit-on-change>
+                    <option value=""><?= __('hiring_report_all_months') ?></option>
                     <?php foreach ($months as $val => $label): ?>
                         <option value="<?= $val ?>" <?= $val === $filter_month ? 'selected' : '' ?>><?= $label ?></option>
                     <?php endforeach; ?>
@@ -125,7 +125,7 @@ echo Flash::fromQuery('success', [
 <div class="card">
 <?php if (empty($reports)): ?>
     <div class="card-body">
-        <p class="text-muted"><?= __('no_hiring_reports') ?></p>
+        <p class="text-muted"><?= __('hiring_report_no_hiring_reports') ?></p>
     </div>
 <?php else:
     $tbl = Table::make()
@@ -138,8 +138,8 @@ echo Flash::fromQuery('success', [
     echo $tbl
         ->column(__('employee_number'), fn($r) => '<code>' . htmlspecialchars($r['employee_number'] ?? '') . '</code>')
         ->column(__('employee_name'), fn($r) => '<strong>' . htmlspecialchars($r['employee_name'] ?? '') . '</strong>')
-        ->column(__('hire_date'), fn($r) => htmlspecialchars($r['hire_date'] ?? '—'))
-        ->column(__('hired_by'), fn($r) => htmlspecialchars($r['hired_by'] ?? '—'))
+        ->column(__('hiring_report_hire_date'), fn($r) => htmlspecialchars($r['hire_date'] ?? '—'))
+        ->column(__('hiring_report_hired_by'), fn($r) => htmlspecialchars($r['hired_by'] ?? '—'))
         ->column(__('created_at'), fn($r) => '<span class="td-date-muted">' . htmlspecialchars(substr($r['created_at'] ?? '', 0, 10)) . '</span>')
         ->column(__('actions'), function($r) use ($BASE_URL, $auth_user) {
             $rid = (int) $r['id'];
@@ -149,7 +149,7 @@ echo Flash::fromQuery('success', [
             $html .= Button::make(__('view'))->ghost()->sm()->link($base)->render();
             $html .= Button::make(__('edit'))->ghost()->sm()->link($base . '/edit')->render();
             if (!empty($auth_user['is_admin'])) {
-                $html .= '<form method="POST" action="' . htmlspecialchars($base . '/delete') . '" class="form-inline" data-confirm="' . htmlspecialchars(__('confirm_delete_hiring_report'), ENT_QUOTES) . '">';
+                $html .= '<form method="POST" action="' . htmlspecialchars($base . '/delete') . '" class="form-inline" data-confirm="' . htmlspecialchars(__('hiring_report_confirm_delete_hiring_report'), ENT_QUOTES) . '">';
                 $html .= csrf_field();
                 $html .= Button::make(__('delete'))->danger()->sm()->submit()->render();
                 $html .= '</form>';

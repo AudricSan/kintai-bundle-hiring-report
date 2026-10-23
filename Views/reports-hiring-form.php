@@ -1,7 +1,7 @@
 <?php
-use kintai\UI\Components\Button;
-use kintai\UI\Components\Card;
-use kintai\UI\Components\Flash;
+use kintai\Contract\View\Components\Button;
+use kintai\Contract\View\Components\Card;
+use kintai\Contract\View\Components\Flash;
 
 /**
  * @var array  $store
@@ -16,11 +16,11 @@ $base = $BASE_URL . '/admin/stores/' . $storeId . '/reports/hiring';
 $action = $mode === 'edit'
     ? $base . '/' . $reportId . '/edit'
     : $base . '/create';
-$title = $mode === 'edit' ? __('edit_hiring_report') : __('new_hiring_report');
+$title = $mode === 'edit' ? __('hiring_report_edit_hiring_report') : __('hiring_report_new_hiring_report');
 
 $v = fn(string $key) => htmlspecialchars((string) ($report[$key] ?? ''));
 
-echo Flash::fromQuery('error', ['already_exists' => __('report_already_exists')])->render();
+echo Flash::fromQuery('error', ['already_exists' => __('hiring_report_report_already_exists')])->render();
 ?>
 <div class="page-header">
     <h2 class="page-header__title"><?= htmlspecialchars($title) ?></h2>
@@ -86,8 +86,8 @@ echo Flash::fromQuery('error', ['already_exists' => __('report_already_exists')]
             <label class="form-label" for="hr-tax_classification"><?= __('tax_classification') ?></label>
             <select id="hr-tax_classification" name="tax_classification" class="form-control">
                 <option value="">— <?= __('select') ?> —</option>
-                <option value="kou" <?= ($report['tax_classification'] ?? '') === 'kou' ? 'selected' : '' ?>><?= __('tax_kou') ?></option>
-                <option value="otsu" <?= ($report['tax_classification'] ?? '') === 'otsu' ? 'selected' : '' ?>><?= __('tax_otsu') ?></option>
+                <option value="kou" <?= ($report['tax_classification'] ?? '') === 'kou' ? 'selected' : '' ?>><?= __('hiring_report_tax_kou') ?></option>
+                <option value="otsu" <?= ($report['tax_classification'] ?? '') === 'otsu' ? 'selected' : '' ?>><?= __('hiring_report_tax_otsu') ?></option>
             </select>
         </div>
     </div>
@@ -99,7 +99,7 @@ echo Flash::fromQuery('error', ['already_exists' => __('report_already_exists')]
     </div>
     <?php
     $identityBody = ob_get_clean();
-    echo Card::make()->header(__('section_identity'))->body($identityBody)->render();
+    echo Card::make()->header(__('hiring_report_section_identity'))->body($identityBody)->render();
 
     ob_start();
     ?>
@@ -129,7 +129,7 @@ echo Flash::fromQuery('error', ['already_exists' => __('report_already_exists')]
     </div>
     <?php
     $contactBody = ob_get_clean();
-    echo Card::make()->header(__('section_contact'))->body($contactBody)->render();
+    echo Card::make()->header(__('hiring_report_section_contact'))->body($contactBody)->render();
 
     ob_start();
     ?>
@@ -145,23 +145,23 @@ echo Flash::fromQuery('error', ['already_exists' => __('report_already_exists')]
     </div>
     <?php
     $guarantorBody = ob_get_clean();
-    echo Card::make()->header(__('section_guarantor'))->body($guarantorBody)->render();
+    echo Card::make()->header(__('hiring_report_section_guarantor'))->body($guarantorBody)->render();
 
     ob_start();
     ?>
     <div class="form-row">
         <div class="form-group">
-            <label class="form-label" for="hr-store_name"><?= __('store_name') ?></label>
+            <label class="form-label" for="hr-store_name"><?= __('hiring_report_store_name') ?></label>
             <input type="text" id="hr-store_name" name="store_name" class="form-control" value="<?= htmlspecialchars($report['store_name'] ?? $store['name'] ?? '') ?>">
         </div>
         <div class="form-group">
-            <label class="form-label" for="hr-hired_by"><?= __('hired_by') ?></label>
+            <label class="form-label" for="hr-hired_by"><?= __('hiring_report_hired_by') ?></label>
             <input type="text" id="hr-hired_by" name="hired_by" class="form-control" value="<?= $v('hired_by') ?>">
         </div>
     </div>
     <div class="form-row">
         <div class="form-group">
-            <label class="form-label" for="hr-hire_date"><?= __('hire_date') ?></label>
+            <label class="form-label" for="hr-hire_date"><?= __('hiring_report_hire_date') ?></label>
             <input type="date" id="hr-hire_date" name="hire_date" class="form-control" value="<?= $v('hire_date') ?>">
         </div>
     </div>
@@ -171,11 +171,11 @@ echo Flash::fromQuery('error', ['already_exists' => __('report_already_exists')]
     </div>
     <?php
     $employmentBody = ob_get_clean();
-    echo Card::make()->header(__('section_employment'))->body($employmentBody)->render();
+    echo Card::make()->header(__('hiring_report_section_employment'))->body($employmentBody)->render();
     ?>
 
     <div class="form-actions">
-        <?= Button::make($mode === 'edit' ? __('save') : __('new_hiring_report'))->primary()->submit()->render() ?>
+        <?= Button::make($mode === 'edit' ? __('save') : __('hiring_report_new_hiring_report'))->primary()->submit()->render() ?>
         <a href="<?= htmlspecialchars(back_url($base)) ?>" class="btn btn--ghost"><?= __('cancel') ?></a>
     </div>
 </form>
